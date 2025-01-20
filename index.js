@@ -6,7 +6,7 @@ const sqlite3 = require('sqlite3');
 
 const path = require('path');
 
-const dbpath = path.join(__dirname, 'accounts');
+const dbpath = path.join(__dirname, 'accounts.db');
 
 
 
