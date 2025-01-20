@@ -12,7 +12,7 @@ const dbpath = path.join(__dirname, 'accounts.db');
 
 app.use(express.json());
 
-const port = 3000;
+const port = 5000;
 
 let db = null;
 
@@ -38,7 +38,7 @@ initializeDBAndServer();
 app.get('/userDetails', async (req, res) => {
     const data = `select * from user;`;
     const result = await db.all(data);
-    res.send(result);
+    res.json(result);
 });
 
 module.exports = app;
