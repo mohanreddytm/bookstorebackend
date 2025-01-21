@@ -5,9 +5,39 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get("/api/message", (req, res) => {
-  res.json({ message: "Hello from the backend!" });
+const PORT = 5000;
+
+const path = require("path");
+
+const dbPath = path.join(__dirname, "normal.db");
+const sqlite3 = require("sqlite3");
+const {open} = require("sqlite");
+
+let db;
+
+const initializeDbAndServer = async () => {
+  try {
+    db = await open({
+      filename: dbPath,
+      driver: sqlite3.Database,
+    });
+    app.listen(PORT, () => {
+      console.log(`Server is running at http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.log(`DB Error: ${error.message}`);
+    process.exit(1);
+  }
+}
+
+initializeDbAndServer();
+
+app.get("/fun/", async (request, response) => {
+  const getMessageQuery = `
+    SELECT * FROM user;
+  `;
+  const messageArray = await db.all(getMessageQuery);
+  response.send(messageArray);
 });
 
-const PORT = 5000;
-app.listen(PORT, () => console.log(`Backend running on http://localhost:${PORT}`));
+module.exports = app;
