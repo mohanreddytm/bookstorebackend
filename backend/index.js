@@ -10,7 +10,7 @@ const PORT = 5000;
 
 const path = require("path");
 
-const dbPath = path.join(__dirname, "normal.db");
+const dbPath = path.join(__dirname, "fun.db");
 const sqlite3 = require("sqlite3");
 const {open} = require("sqlite");
 
